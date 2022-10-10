@@ -43,6 +43,9 @@ export default function Join() {
         <input type="password" id="userPassword" value={userPassword} onChange={userPasswordChange} placeholder="비밀번호를 입력해주세요."/>
         <br/>
         <button type="button" onClick={actionJoin}>회원가입</button>
+        <Link to="/login">
+          <button type="button">로그인하러 가기</button>
+        </Link>
       </div>
     </div>
   );
