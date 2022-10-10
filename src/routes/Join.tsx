@@ -1,30 +1,24 @@
 import {useState} from "react";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Join() {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
   const userIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target != null){
-      console.log(event.target.value);
       setUserId(event.target.value);
-      // 밸리데이션도 해보자
     }
   }
 
   const userPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target != null){
-      console.log(event.target.value);
       setUserPassword(event.target.value);
-      // 밸리데이션 추가 에정
     }
   }
 
-  // 로그인
-  const actionLogin = () => {
-    // 로그인 검증을 여기서 할지?
-    // 비동기 통신이 이루어질 곳
+  // 회원가입
+  const actionJoin = () => {
     fetch(
       "api url",
       {
@@ -33,23 +27,22 @@ export default function Login() {
         body: JSON.stringify({userId: userId, userPassword: userPassword})
       }
     )
-    .then(response => response.json()) // 샘플데이터로 테스트 해보자
+    .then(response => response.json())
     .then(response => {
       console.log("fetch 끝")
     });
   }
 
+
   return (
     <div>
       <div>
         <input type="text" id="userId" value={userId} onChange={userIdChange} placeholder="아이디를 입력해주세요."/>
+        <button type="button">아이디 중복 검사</button>
         <br/>
         <input type="password" id="userPassword" value={userPassword} onChange={userPasswordChange} placeholder="비밀번호를 입력해주세요."/>
         <br/>
-        <button type="button" onClick={actionLogin}>로그인</button>
-        <Link to="/join">
-          <button type="button">회원가입하러 가기</button>
-        </Link>
+        <button type="button" onClick={actionJoin}>회원가입</button>
       </div>
     </div>
   );
