@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -7,35 +7,37 @@ export default function Login() {
 
   const userIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target != null){
-      console.log(event.target.value);
       setUserId(event.target.value);
-      // 밸리데이션도 해보자
     }
   }
 
   const userPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target != null){
-      console.log(event.target.value);
       setUserPassword(event.target.value);
-      // 밸리데이션 추가 에정
     }
   }
 
   // 로그인
   const actionLogin = () => {
-    // 로그인 검증을 여기서 할지?
-    // 비동기 통신이 이루어질 곳
-    fetch(
-      "api url",
-      {
+    fetch("/user/login", {
         method: "POST",
         headers: {"Content-type": "application/json"},
-        body: JSON.stringify({userId: userId, userPassword: userPassword})
+        body: JSON.stringify({userId, userPassword})
       }
     )
-    .then(response => response.json()) // 샘플데이터로 테스트 해보자
+    .then(response => response.json())
     .then(response => {
-      console.log("fetch 끝")
+      console.log(response);
+      if(response.userId === null || response.userId === ""){
+        // 로그인 실패
+        alert("로그인에 실패하였습니다.");
+      } else {
+        // 로그인 성공
+        localStorage.setItem("loginUserId", response.userId);
+      }
+    })
+    .catch(error => {
+      console.log(error);
     });
   }
 

@@ -22,7 +22,6 @@ export default function Join() {
   // 아이디 중복 검사
   const actionUserIdDupCheck = async () => {
     const jsonResult = await(await fetch(`/user/use/${userId}`)).json();
-    console.log(jsonResult);
     if(jsonResult.isUseUserId){
       setUseUserId(true);
       alert("해당 아이디는 사용 가능합니다.");
@@ -49,7 +48,6 @@ export default function Join() {
     )
     .then(response => response.json())
     .then(response => {
-      console.log(response);
       if(response.stat === "success"){
         alert("정상적으로 회원가입이 되었습니다.");
         Navigate("/login");

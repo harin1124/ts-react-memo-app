@@ -1,6 +1,22 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function MemoList() {
+  const [memos, setMemo] = useState([]);
+  const getMemos = () => {
+    const userId = localStorage.loginUserId;
+    fetch(`/memo/list/${userId}`, {method: "GET"})
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  useEffect(() => {
+    getMemos();
+  }, []);
 
   return (
     <div>
