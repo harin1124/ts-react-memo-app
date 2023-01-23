@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  let navigate = useNavigate();
+
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -29,11 +31,10 @@ export default function Login() {
     .then(response => {
       console.log(response);
       if(response.userId === null || response.userId === ""){
-        // 로그인 실패
         alert("로그인에 실패하였습니다.");
       } else {
-        // 로그인 성공
         localStorage.setItem("loginUserId", response.userId);
+        navigate("/memoList");
       }
     })
     .catch(error => {

@@ -12,7 +12,7 @@ function Index() {
     } else {
       navigate("/login");
     }
-  }); 
+  });
 
   return (
     <></>
