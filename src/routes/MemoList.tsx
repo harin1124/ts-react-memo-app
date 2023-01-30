@@ -5,12 +5,12 @@ export default function MemoList() {
   let navigate = useNavigate();
 
   // 유저 정보 없을 경우 로그인 화면으로 이동
-  /*useEffect(() => {
+  useEffect(() => {
     const userId = localStorage.loginUserId;
     if(userId === null || userId === undefined || userId === ""){
       navigate("/login");
     }
-  });*/
+  });
 
   const [memos, setMemo] = useState([]);
   const getMemos = () => {
