@@ -29,7 +29,6 @@ export default function Login() {
     )
     .then(response => response.json())
     .then(response => {
-      console.log(response);
       if(response.userId === null || response.userId === ""){
         alert("로그인에 실패하였습니다.");
       } else {

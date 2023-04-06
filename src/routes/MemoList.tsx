@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MemoPanel from "../component/MemoPanel";
 
 export default function MemoList() {
   let navigate = useNavigate();
@@ -12,17 +13,17 @@ export default function MemoList() {
     }
   });
 
-  const [memos, setMemo] = useState([]);
-  const getMemos = () => {
+  const [memos, setMemo] = useState<any[]>([]);
+  const getMemos = async() => {
     const userId = localStorage.loginUserId;
-    fetch(`/memo/list/${userId}`, {method: "GET"})
-    //.then(response => response.json())
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    const response = await fetch(`/memo/list/${userId}`, {method: "GET"})
+      .catch(error => {
+        console.log(error);
+      }
+    );
+    let json = (response instanceof Response) ? await response.json() : [];
+    setMemo(json);
+    
   }
 
   useEffect(() => {
@@ -31,7 +32,14 @@ export default function MemoList() {
 
   return (
     <div>
-      메모 목록. 메모 컴포넌트 띄우기
+      {memos.map((memo) =>
+        <MemoPanel
+          key={memo}
+          title={memo.title}
+          reg_date={memo.regDate}
+          edit_date={memo.editDate}
+        />
+      )}
     </div>
   );
 }
