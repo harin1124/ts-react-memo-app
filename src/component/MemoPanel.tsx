@@ -10,5 +10,4 @@ function MemoPanel(prop:MemoPanel) {
 		</div>
   );
 }
-
 export default MemoPanel;
