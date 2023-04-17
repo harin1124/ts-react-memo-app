@@ -32,8 +32,11 @@ export default function Login() {
       if(response.userId === null || response.userId === ""){
         alert("로그인에 실패하였습니다.");
       } else {
-        localStorage.setItem("loginUserId", response.userId);
-        navigate("/memoList");
+        console.log(response);
+        if(response.userId !== undefined && response.userId !== ""){
+          localStorage.setItem("loginUserId", response.userId);
+          navigate("/memoList");
+        }
       }
     })
     .catch(error => {
