@@ -1,0 +1,13 @@
+.memoAddButton {
+  position:fixed; bottom:15px; right:5%;
+  height:50px;
+  padding:0 20px;
+  border-radius:5px;
+  color:#fff;
+  border:none; background:#ff9800;
+  cursor:pointer;
+  transition:background-color ease 0.2s
+}
+.memoAddButton:hover {
+  background:#c37400
+}

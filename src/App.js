@@ -3,6 +3,7 @@ import Index from "./routes/Index";
 import Login from "./routes/Login";
 import Join from "./routes/Join";
 import MemoList from "./routes/MemoList";
+import CreateMemo from "./routes/CreateMemo";
 
 function App() {
   return (
@@ -12,9 +13,9 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/join" element={<Join/>}/>
         <Route path="/memoList" element={<MemoList/>}/>
+        <Route path="/createMemo" element={<CreateMemo/>}/>
       </Routes>
     </BrowserRouter>
   );
 }
-
 export default App;

@@ -9,8 +9,8 @@ function UserPanel(){
   if(userInfo.userName !== ""){
     return (
       <div className={styles.userPanel}>
-        <p>{userInfo.userName}</p>
-        <p>로그아웃</p>
+        <p className={styles.userPanelName}>{userInfo.userName}</p>
+        <p className={styles.userPanelLogout}>로그아웃</p>
       </div>
     );
   } else {

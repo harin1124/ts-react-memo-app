@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MemoPanel from "../component/MemoPanel";
 import UserPanel from "../component/UserPanel";
+import MemoAddButton from "../component/MemoAddButton";
 
 export default function MemoList() {
   let navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function MemoList() {
 
   return (
     <div>
-      <UserPanel></UserPanel>
+      <UserPanel/>
       <div>
         {memos.map((memo) =>
           <MemoPanel
@@ -44,6 +45,7 @@ export default function MemoList() {
           />
         )}
       </div>
+      <MemoAddButton/>
     </div>
   );
 }
