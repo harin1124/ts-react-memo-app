@@ -1,0 +1,37 @@
+.loginPanel {
+  width:400px;
+  padding:30px;
+  border-radius:10px; background:#FFF;
+  box-shadow:0 0 20px #b8b8b84f
+}
+.loginPanel h1 {
+  font-size:30px; color:#3b3b3b
+}
+
+.loginPanel .loginArea {
+  display:flex;
+}
+
+.loginPanel .loginArea > div input {
+  position:relative;
+  display:flex;
+  width:300px; height:35px;
+  padding:10px;
+  border:1px solid #cacaca; outline:none;
+  box-sizing:border-box;
+  transition:border ease .2s
+}
+.loginPanel .loginArea > div input:focus {border:1px solid #ff9800; z-index:1}
+.loginPanel .loginArea > div input[type=text] {border-radius:5px 0 0 0}
+.loginPanel .loginArea > div input[type=password] {top:-1px; border-radius:0 0 0 5px}
+.loginPanel .loginArea > button {
+  width:-webkit-fill-available; height:69px;
+  border:none; border-radius:0 5px 5px 0;
+  background:#ff9800
+}
+.loginPanel .link button {
+  margin:5px 0 0 0; padding:0;
+  color:#5c5c5c;
+  border:none; background:none;
+  cursor:pointer
+}

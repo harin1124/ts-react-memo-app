@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import styles from "../styleModule/login.module.css";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -45,17 +46,22 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <div>
-        <input type="text" id="userId" value={userId} onChange={userIdChange} placeholder="아이디를 입력해주세요."/>
-        <br/>
-        <input type="password" id="userPassword" value={userPassword} onChange={userPasswordChange} placeholder="비밀번호를 입력해주세요."/>
-        <br/>
-        <button type="button" onClick={actionLogin}>로그인</button>
-        <Link to="/join">
-          <button type="button">회원가입하러 가기</button>
-        </Link>
+    <>
+      <div className={styles.loginPanel}>
+        <h1>HR Memo</h1>
+        <div className={styles.loginArea}>
+          <div>
+            <input type="text" id="userId" value={userId} onChange={userIdChange} placeholder="아이디를 입력해주세요."/>
+            <input type="password" id="userPassword" value={userPassword} onChange={userPasswordChange} placeholder="비밀번호를 입력해주세요."/>
+          </div>
+          <button type="button" onClick={actionLogin}>로그인</button>
+        </div>
+        <div className={styles.link}>
+          <Link to="/join">
+            <button type="button">회원가입하러 가기</button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
