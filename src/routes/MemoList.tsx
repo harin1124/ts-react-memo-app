@@ -9,9 +9,9 @@ export default function MemoList() {
 
   // 유저 정보 없을 경우 로그인 화면으로 이동
   useEffect(() => {
-    const userId = localStorage.loginUserId;
+    const userId = localStorage.userId2;
     if(userId === null || userId === undefined || userId === ""){
-      navigate("/login");
+      navigate("/login", {state: "인증 과정 중 에러 발생하였습니다."});
     }
   });
 
@@ -25,7 +25,6 @@ export default function MemoList() {
     );
     let json = (response instanceof Response) ? await response.json() : [];
     setMemo(json);
-    
   }
 
   useEffect(() => {

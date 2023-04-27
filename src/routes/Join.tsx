@@ -2,7 +2,7 @@ import {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Join() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [useUserId, setUseUserId] = useState(false);
@@ -19,10 +19,13 @@ export default function Join() {
     }
   }
 
-  // 아이디 중복 검사
+  /**
+   * 아이디 중복 검사
+   */
   const actionUserIdDupCheck = async () => {
-    const jsonResult = await(await fetch(`/user/use/${userId}`)).json();
-    if(jsonResult.isUseUserId){
+    // try catch 필요
+    const jsonResult = await(await fetch(`/use/${userId}`)).json();
+    if(jsonResult?.isUseUserId){
       setUseUserId(true);
       alert("해당 아이디는 사용 가능합니다.");
     } else {
@@ -32,8 +35,10 @@ export default function Join() {
     }
   }
 
-  // 회원가입
-  const actionJoin = () => {
+  /**
+   * 회원가입 수행
+   */
+  const actionJoin = ():boolean|undefined => {
     if(!useUserId){
       alert("아이디 중복 검사를 해주세요.");
       return false;
@@ -50,7 +55,7 @@ export default function Join() {
     .then(response => {
       if(response.stat === "success"){
         alert("정상적으로 회원가입이 되었습니다.");
-        Navigate("/login");
+        navigate("/login");
       } else {
         alert("회원가입에 실패하였습니다.");
         setUserId("");
@@ -58,7 +63,6 @@ export default function Join() {
       }
     });
   }
-
 
   return (
     <div>
