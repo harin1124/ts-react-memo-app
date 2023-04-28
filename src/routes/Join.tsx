@@ -5,11 +5,12 @@ export default function Join() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [useUserId, setUseUserId] = useState(false);
+  const [userIdDupCheck, setUserIdDupCheck] = useState(false);
 
   const userIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target != null){
       setUserId(event.target.value);
+      setUserIdDupCheck(false);
     }
   }
 
@@ -22,24 +23,30 @@ export default function Join() {
   /**
    * 아이디 중복 검사
    */
-  const actionUserIdDupCheck = async () => {
-    // try catch 필요
-    const jsonResult = await(await fetch(`/use/${userId}`)).json();
-    if(jsonResult?.isUseUserId){
-      setUseUserId(true);
-      alert("해당 아이디는 사용 가능합니다.");
-    } else {
-      setUseUserId(false);
-      setUserId("");
-      alert("해당 아이디는 중복 됩니다. 다른 아이디로 다시 시도하세요.");
-    }
+  const actionUserIdDupCheck = () => {
+    fetch(`/use/${userId}`)
+    .then(response => response.json())
+    .then(response => {
+      let isUseUserId = response;
+      if(isUseUserId){
+        setUserIdDupCheck(false);
+        setUserId("");
+        alert("해당 아이디는 중복 됩니다. 다른 아이디로 다시 시도하세요.");
+      } else {
+        setUserIdDupCheck(true);
+        alert("해당 아이디는 사용 가능합니다.");
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   /**
    * 회원가입 수행
    */
   const actionJoin = ():boolean|undefined => {
-    if(!useUserId){
+    if(!userIdDupCheck){
       alert("아이디 중복 검사를 해주세요.");
       return false;
     }
