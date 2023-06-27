@@ -51,11 +51,11 @@ export default function Join() {
       return false;
     }
     fetch(
-      "/user",
+      "/join",
       {
         method: "POST",
         headers: {"Content-type": "application/json"},
-        body: JSON.stringify({userId: userId, userPassword: userPassword})
+        body: JSON.stringify({userId: userId, password: userPassword})
       }
     )
     .then(response => response.json())

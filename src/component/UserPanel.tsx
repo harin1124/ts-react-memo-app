@@ -6,7 +6,7 @@ type UserInfo = {userName: string|null};
 function UserPanel(){
   let navigate = useNavigate();
   let userInfo:UserInfo = {userName: ""};
-  userInfo.userName = localStorage.getItem("loginUserId") || null;
+  userInfo.userName = localStorage.getItem("userId") || null;
 
   const actionUserLogout = () => {
     localStorage.clear();

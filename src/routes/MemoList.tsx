@@ -9,22 +9,22 @@ export default function MemoList() {
 
   // 유저 정보 없을 경우 로그인 화면으로 이동
   useEffect(() => {
-    const userId = localStorage.userId2;
+    const userId = localStorage.userId;
     if(userId === null || userId === undefined || userId === ""){
-      navigate("/login", {state: "인증 과정 중 에러 발생하였습니다."});
+      navigate("/login", {state: "인증 과정 중 에러 발생하였습니다.\n로그인 화면으로 이동합니다."});
     }
   });
 
   const [memos, setMemo] = useState<any[]>([]);
   const getMemos = async() => {
-    const userId = localStorage.loginUserId;
+    const userId = localStorage.userId;
     const response = await fetch(`/memo/list/${userId}`, {method: "GET"})
       .catch(error => {
         console.log(error);
       }
     );
     let json = (response instanceof Response) ? await response.json() : [];
-    setMemo(json);
+    setMemo({... json});
   }
 
   useEffect(() => {

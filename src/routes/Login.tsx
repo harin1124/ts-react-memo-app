@@ -17,7 +17,7 @@ export default function Login() {
     // TODO 에러 메시지 표현의 더 나은 방식 검토
     if(location.state !== null){
       alert(location.state);
-      location.state = null;
+      navigate("/login", {state: null});
     }
   });
 
@@ -42,7 +42,7 @@ export default function Login() {
   }
 
   /**
-   * 로그인 실행
+   * @description 로그인 실행
    */
   const actionLogin = () => {
     fetch("/login", {
@@ -53,7 +53,8 @@ export default function Login() {
     .then(response => {
       const authToken = response.headers.get("authorization");
       if(authToken == null){
-        alert("로그인에 실패하였습니다.");
+        const loginFailReson:string = response.headers.get("Login-Fail") || "";
+        throw new Error(loginFailReson);
       } else {
         localStorage.setItem("token", authToken.replace("Bearer ", ""));
         localStorage.setItem("userId", jwtTokenParse(authToken).username);
@@ -61,7 +62,12 @@ export default function Login() {
       }
     })
     .catch(error => {
-      console.log(error);
+      const msg:string = error.message;
+      switch(msg){
+        case "NOT_USER":
+          alert("등록된 유저가 아닙니다.\n회원가입을 진행해주세요.");
+          break;
+      }
     });
   }
 
@@ -69,17 +75,21 @@ export default function Login() {
     <div className={styles.loginBox}>
       <div className={styles.loginPanel}>
         <h1>HR Memo</h1>
-        <div className={styles.loginArea}>
-          <div>
-            <input type="text" id="userId" value={userId}
-              onChange={userIdChange}
-              placeholder="아이디를 입력해주세요."/>
-            <input type="password" id="userPassword" value={userPassword}
-              onChange={userPasswordChange}
-              placeholder="비밀번호를 입력해주세요."/>
+        <form>
+          <div className={styles.loginArea}>
+            <div>
+              <input type="text" id="userId" value={userId}
+                onChange={userIdChange}
+                placeholder="아이디를 입력해주세요."
+                autoComplete="off"/>
+              <input type="password" id="userPassword" value={userPassword}
+                onChange={userPasswordChange}
+                placeholder="비밀번호를 입력해주세요."
+                autoComplete="off"/>
+            </div>
+            <button type="button" onClick={actionLogin}>로그인</button>
           </div>
-          <button type="button" onClick={actionLogin}>로그인</button>
-        </div>
+        </form>
         <div className={styles.link}>
           <Link to="/join">
             <button type="button">회원가입하러 가기</button>
