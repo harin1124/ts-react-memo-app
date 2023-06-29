@@ -56,7 +56,7 @@ export default function Login() {
         const loginFailReson:string = response.headers.get("Login-Fail") || "";
         throw new Error(loginFailReson);
       } else {
-        localStorage.setItem("token", authToken.replace("Bearer ", ""));
+        localStorage.setItem("token", authToken);
         localStorage.setItem("userId", jwtTokenParse(authToken).username);
         navigate("/memoList"); // 메모 목록으로 이동
       }
