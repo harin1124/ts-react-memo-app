@@ -15,16 +15,21 @@ export default function MemoList() {
     }
   });
 
-  const [memos, setMemo] = useState<any[]>([]);
+  const [memos, setMemo] = useState<Array<any>>([]);
   const getMemos = async() => {
     const userId = localStorage.userId;
-    const response = await fetch(`/memo/list/${userId}`, {method: "GET"})
+    const token = localStorage.getItem("token") || "";
+    const response = await fetch(`/memo/list/${userId}`,
+      {
+        method: "GET",
+        headers: new Headers({Authorization: token})
+      })
       .catch(error => {
         console.log(error);
       }
     );
-    let json = (response instanceof Response) ? await response.json() : [];
-    setMemo({... json});
+    let json:Array<any> = (response instanceof Response) ? await response.json() : [];
+    setMemo(json);
   }
 
   useEffect(() => {

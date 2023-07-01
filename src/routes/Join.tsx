@@ -1,5 +1,7 @@
 import {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import styles from "../styleModule/login.module.css";
+import {getClasses} from "../common/CommonFunc";
 
 export default function Join() {
   const navigate = useNavigate();
@@ -72,17 +74,28 @@ export default function Join() {
   }
 
   return (
-    <div>
-      <div>
-        <input type="text" id="userId" value={userId} onChange={userIdChange} placeholder="아이디를 입력해주세요."/>
-        <button type="button" onClick={actionUserIdDupCheck}>아이디 중복 검사</button>
-        <br/>
-        <input type="password" id="userPassword" value={userPassword} onChange={userPasswordChange} placeholder="비밀번호를 입력해주세요."/>
-        <br/>
-        <button type="button" onClick={actionJoin}>회원가입</button>
-        <Link to="/login">
-          <button type="button">로그인하러 가기</button>
-        </Link>
+    <div className={styles.loginBox}>
+      <div className={styles.loginPanel}>
+        <h1>회원가입</h1>
+        <form>
+          <div className={getClasses([styles.loginArea, styles.joinArea])}>
+            <div>
+              <div>
+                <input type="text" id="userId" value={userId}
+                  onChange={userIdChange}
+                  placeholder="아이디를 입력해주세요."/>
+                <button type="button" onClick={actionUserIdDupCheck}>아이디 중복 검사</button>
+              </div>
+              <input type="password" id="userPassword" value={userPassword}
+                onChange={userPasswordChange}
+                placeholder="비밀번호를 입력해주세요." autoComplete="off"/>
+            </div>
+            <button type="button" onClick={actionJoin}>회원가입</button>
+            <Link to="/login">
+              <button type="button">로그인하러 가기</button>
+            </Link>
+            </div>
+        </form>
       </div>
     </div>
   );
